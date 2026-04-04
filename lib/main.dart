@@ -37,31 +37,31 @@ class MyApp extends StatelessWidget {
 
 // ===== MOCK DATA (Linux only) =====
 final mockArticles = [
-  {'title': 'Global Summit Reaches Climate Agreement', 'content': 'World leaders gathered in Geneva to sign a landmark deal.', 'category': 'World'},
-  {'title': 'Tech Giants Face New Regulations', 'content': 'The EU has announced sweeping new rules for large platforms.', 'category': 'Technology'},
-  {'title': 'Elections Underway in Three Nations', 'content': 'Voters headed to the polls today in a historic vote.', 'category': 'Politics'},
-  {'title': 'Markets Rally After Fed Announcement', 'content': 'Stock markets surged following the latest interest rate decision.', 'category': 'Business'},
-  {'title': 'Championship Finals Set For Weekend', 'content': 'Two sides will compete for the title in a sold out stadium.', 'category': 'Sport'},
-  {'title': 'New Study Links Sleep To Productivity', 'content': 'Researchers have found a strong correlation between rest and output.', 'category': 'Health'},
-  {'title': 'Arctic Ice Levels Hit Record Low', 'content': 'Scientists warn of accelerating melt rates in the polar region.', 'category': 'World'},
-  {'title': 'Central Bank Raises Interest Rates', 'content': 'Policymakers move to curb inflation with a quarter point rise.', 'category': 'Business'},
-  {'title': 'Space Agency Announces Mars Mission', 'content': 'A crewed mission to Mars is planned for the next decade.', 'category': 'Technology'},
-  {'title': 'Transfer Window Opens With Big Moves', 'content': 'Several top clubs have already secured high profile signings.', 'category': 'Sport'},
-  {'title': 'UN Calls Emergency Session On Conflict', 'content': 'Security council members met to discuss the escalating crisis.', 'category': 'World'},
-  {'title': 'AI Regulation Bill Passes First Reading', 'content': 'Lawmakers move closer to passing landmark artificial intelligence laws.', 'category': 'Technology'},
-  {'title': 'Opposition Party Wins By-Election', 'content': 'A surprise result has shifted the balance of power in parliament.', 'category': 'Politics'},
-  {'title': 'Oil Prices Surge Amid Supply Concerns', 'content': 'Crude prices climbed sharply on fears of a production shortfall.', 'category': 'Business'},
-  {'title': 'National Team Names World Cup Squad', 'content': 'The manager has included several surprise selections in the lineup.', 'category': 'Sport'},
-  {'title': 'Hospitals Report Rise In Winter Admissions', 'content': 'Health services are under pressure as seasonal illness peaks early.', 'category': 'Health'},
-  {'title': 'Floods Displace Thousands In Southeast Asia', 'content': 'Relief efforts are underway after severe monsoon rains hit the region.', 'category': 'World'},
-  {'title': 'Major Bank Announces Thousands Of Job Cuts', 'content': 'The lender cited automation and cost pressures behind the decision.', 'category': 'Business'},
-  {'title': 'Rover Discovers Unusual Rock Formation On Mars', 'content': 'Scientists are studying samples that could hint at ancient conditions.', 'category': 'Technology'},
-  {'title': 'Athlete Breaks Ten Year World Record', 'content': 'A stunning performance at the championship has rewritten the history books.', 'category': 'Sport'},
-  {'title': 'Prime Minister Calls Snap Election', 'content': 'The announcement came after a vote of no confidence in parliament.', 'category': 'Politics'},
-  {'title': 'Inflation Falls For Third Consecutive Month', 'content': 'The latest figures offer some relief for households facing high costs.', 'category': 'Business'},
-  {'title': 'Wildfire Spreads Across Southern Europe', 'content': 'Firefighters are battling blazes across several countries amid a heatwave.', 'category': 'World'},
-  {'title': 'Streaming Giants Lose Subscribers For First Time', 'content': 'The industry faces a turning point as viewer habits continue to shift.', 'category': 'Technology'},
-  {'title': 'New Mental Health Strategy Launched', 'content': 'The government has outlined a ten year plan to improve services.', 'category': 'Health'},
+  {'title': 'Global Summit Reaches Climate Agreement', 'content': 'World leaders gathered in Geneva to sign a landmark deal.', 'category': 'World', 'heroImageUrl': ''},
+  {'title': 'Tech Giants Face New Regulations', 'content': 'The EU has announced sweeping new rules for large platforms.', 'category': 'Technology', 'heroImageUrl': ''},
+  {'title': 'Elections Underway in Three Nations', 'content': 'Voters headed to the polls today in a historic vote.', 'category': 'Politics', 'heroImageUrl': ''},
+  {'title': 'Markets Rally After Fed Announcement', 'content': 'Stock markets surged following the latest interest rate decision.', 'category': 'Business', 'heroImageUrl': ''},
+  {'title': 'Championship Finals Set For Weekend', 'content': 'Two sides will compete for the title in a sold out stadium.', 'category': 'Sport', 'heroImageUrl': ''},
+  {'title': 'New Study Links Sleep To Productivity', 'content': 'Researchers have found a strong correlation between rest and output.', 'category': 'Health', 'heroImageUrl': ''},
+  {'title': 'Arctic Ice Levels Hit Record Low', 'content': 'Scientists warn of accelerating melt rates in the polar region.', 'category': 'World', 'heroImageUrl': ''},
+  {'title': 'Central Bank Raises Interest Rates', 'content': 'Policymakers move to curb inflation with a quarter point rise.', 'category': 'Business', 'heroImageUrl': ''},
+  {'title': 'Space Agency Announces Mars Mission', 'content': 'A crewed mission to Mars is planned for the next decade.', 'category': 'Technology', 'heroImageUrl': ''},
+  {'title': 'Transfer Window Opens With Big Moves', 'content': 'Several top clubs have already secured high profile signings.', 'category': 'Sport', 'heroImageUrl': ''},
+  {'title': 'UN Calls Emergency Session On Conflict', 'content': 'Security council members met to discuss the escalating crisis.', 'category': 'World', 'heroImageUrl': ''},
+  {'title': 'AI Regulation Bill Passes First Reading', 'content': 'Lawmakers move closer to passing landmark artificial intelligence laws.', 'category': 'Technology', 'heroImageUrl': ''},
+  {'title': 'Opposition Party Wins By-Election', 'content': 'A surprise result has shifted the balance of power in parliament.', 'category': 'Politics', 'heroImageUrl': ''},
+  {'title': 'Oil Prices Surge Amid Supply Concerns', 'content': 'Crude prices climbed sharply on fears of a production shortfall.', 'category': 'Business', 'heroImageUrl': ''},
+  {'title': 'National Team Names World Cup Squad', 'content': 'The manager has included several surprise selections in the lineup.', 'category': 'Sport', 'heroImageUrl': ''},
+  {'title': 'Hospitals Report Rise In Winter Admissions', 'content': 'Health services are under pressure as seasonal illness peaks early.', 'category': 'Health', 'heroImageUrl': ''},
+  {'title': 'Floods Displace Thousands In Southeast Asia', 'content': 'Relief efforts are underway after severe monsoon rains hit the region.', 'category': 'World', 'heroImageUrl': ''},
+  {'title': 'Major Bank Announces Thousands Of Job Cuts', 'content': 'The lender cited automation and cost pressures behind the decision.', 'category': 'Business', 'heroImageUrl': ''},
+  {'title': 'Rover Discovers Unusual Rock Formation On Mars', 'content': 'Scientists are studying samples that could hint at ancient conditions.', 'category': 'Technology', 'heroImageUrl': ''},
+  {'title': 'Athlete Breaks Ten Year World Record', 'content': 'A stunning performance at the championship has rewritten the history books.', 'category': 'Sport', 'heroImageUrl': ''},
+  {'title': 'Prime Minister Calls Snap Election', 'content': 'The announcement came after a vote of no confidence in parliament.', 'category': 'Politics', 'heroImageUrl': ''},
+  {'title': 'Inflation Falls For Third Consecutive Month', 'content': 'The latest figures offer some relief for households facing high costs.', 'category': 'Business', 'heroImageUrl': ''},
+  {'title': 'Wildfire Spreads Across Southern Europe', 'content': 'Firefighters are battling blazes across several countries amid a heatwave.', 'category': 'World', 'heroImageUrl': ''},
+  {'title': 'Streaming Giants Lose Subscribers For First Time', 'content': 'The industry faces a turning point as viewer habits continue to shift.', 'category': 'Technology', 'heroImageUrl': ''},
+  {'title': 'New Mental Health Strategy Launched', 'content': 'The government has outlined a ten year plan to improve services.', 'category': 'Health', 'heroImageUrl': ''},
 ];
 
 // ===== HOME SCREEN =====
@@ -119,7 +119,8 @@ class _LiveNewsScreen extends StatelessWidget {
             'title': data['title'] ?? '',
             'content': data['content'] ?? '',
             'category': data['category'] ?? '',
-            'imageUrl': data['imageUrl'] ?? '',
+            'heroImageUrl': data['heroImageUrl'] ?? '',
+            'blocks': data['blocks'] ?? [],
           };
         }).toList();
 
@@ -153,6 +154,26 @@ class _NewsLayout extends StatelessWidget {
     required this.bottomArticles,
   });
 
+  // Helper to navigate to article detail
+  void _openArticle(BuildContext context, Map article) {
+    final rawBlocks = article['blocks'] as List? ?? [];
+    final blocks = rawBlocks.isNotEmpty
+        ? rawBlocks.map((b) => Map<String, dynamic>.from(b)).toList()
+        : [{'type': 'text', 'value': article['content'] ?? ''}];
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => ArticleDetailScreen(
+          title: article['title'] ?? '',
+          category: article['category'] ?? '',
+          heroImageUrl: article['heroImageUrl'] ?? '',
+          blocks: blocks,
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -177,22 +198,23 @@ class _NewsLayout extends StatelessWidget {
 
           // --- Hero article ---
           GestureDetector(
-            onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (_) => ArticleDetailScreen(
-                  title: heroArticle['title'] ?? '',
-                  content: heroArticle['content'] ?? '',
-                  category: heroArticle['category'] ?? '',
-                ),
-              ),
-            ),
+            onTap: () => _openArticle(context, heroArticle),
             child: Container(
               margin: EdgeInsets.all(16),
               height: 200,
               decoration: BoxDecoration(
                 color: Colors.grey[200],
                 borderRadius: BorderRadius.circular(12),
+                image: heroArticle['heroImageUrl'] != null && heroArticle['heroImageUrl'].isNotEmpty
+                    ? DecorationImage(
+                        image: NetworkImage(heroArticle['heroImageUrl']),
+                        fit: BoxFit.cover,
+                        colorFilter: ColorFilter.mode(
+                          Colors.black.withOpacity(0.3),
+                          BlendMode.darken,
+                        ),
+                      )
+                    : null,
               ),
               child: Padding(
                 padding: EdgeInsets.all(16),
@@ -206,7 +228,9 @@ class _NewsLayout extends StatelessWidget {
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
                         letterSpacing: 1.2,
-                        color: Colors.blue,
+                        color: heroArticle['heroImageUrl'] != null && heroArticle['heroImageUrl'].isNotEmpty
+                            ? Colors.white
+                            : Colors.blue,
                       ),
                     ),
                     SizedBox(height: 6),
@@ -215,7 +239,9 @@ class _NewsLayout extends StatelessWidget {
                       style: GoogleFonts.playfairDisplay(
                         fontSize: 30,
                         fontWeight: FontWeight.w700,
-                        color: Colors.black,
+                        color: heroArticle['heroImageUrl'] != null && heroArticle['heroImageUrl'].isNotEmpty
+                            ? Colors.white
+                            : Colors.black,
                       ),
                     ),
                   ],
@@ -226,16 +252,7 @@ class _NewsLayout extends StatelessWidget {
 
           // --- Top articles list ---
           ...topArticles.map((article) => GestureDetector(
-            onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (_) => ArticleDetailScreen(
-                  title: article['title'] ?? '',
-                  content: article['content'] ?? '',
-                  category: article['category'] ?? '',
-                ),
-              ),
-            ),
+            onTap: () => _openArticle(context, article),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -332,16 +349,7 @@ class _NewsLayout extends StatelessWidget {
               ),
             ),
             ...tileArticles.map((article) => GestureDetector(
-              onTap: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => ArticleDetailScreen(
-                    title: article['title'] ?? '',
-                    content: article['content'] ?? '',
-                    category: article['category'] ?? '',
-                  ),
-                ),
-              ),
+              onTap: () => _openArticle(context, article),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -390,16 +398,7 @@ class _NewsLayout extends StatelessWidget {
               ),
             ),
             ...bottomArticles.map((article) => GestureDetector(
-              onTap: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => ArticleDetailScreen(
-                    title: article['title'] ?? '',
-                    content: article['content'] ?? '',
-                    category: article['category'] ?? '',
-                  ),
-                ),
-              ),
+              onTap: () => _openArticle(context, article),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
