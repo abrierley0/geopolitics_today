@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'firebase_options.dart';
+import 'article_detail_screen.dart';
 
 // ===== MAIN =====
 void main() async {
@@ -65,33 +66,109 @@ final mockArticles = [
 
 // ===== HOME SCREEN =====
 class NewsScreen extends StatelessWidget {
+  final bool isLinux = !kIsWeb && defaultTargetPlatform == TargetPlatform.linux;
+
   @override
   Widget build(BuildContext context) {
-    // Split mock articles into sections
+    return isLinux ? _MockNewsScreen() : _LiveNewsScreen();
+  }
+}
+
+// ===== MOCK SCREEN (Linux only) =====
+class _MockNewsScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
     final heroArticle = mockArticles[0];
     final topArticles = mockArticles.sublist(1, 4);
     final tileArticles = mockArticles.sublist(4, 8);
     final bottomArticles = mockArticles.sublist(8);
+    return _NewsLayout(
+      heroArticle: heroArticle,
+      topArticles: topArticles,
+      tileArticles: tileArticles,
+      bottomArticles: bottomArticles,
+    );
+  }
+}
 
+// ===== LIVE FIREBASE SCREEN =====
+class _LiveNewsScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<QuerySnapshot>(
+      stream: FirebaseFirestore.instance
+          .collection('articles')
+          .orderBy('publishedAt', descending: true)
+          .snapshots(),
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          return Scaffold(body: Center(child: Text('Error loading news')));
+        }
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Scaffold(body: Center(child: CircularProgressIndicator()));
+        }
+
+        final docs = snapshot.data!.docs;
+        if (docs.isEmpty) {
+          return Scaffold(body: Center(child: Text('No articles found')));
+        }
+
+        final articles = docs.map((doc) {
+          final data = doc.data() as Map<String, dynamic>;
+          return {
+            'title': data['title'] ?? '',
+            'content': data['content'] ?? '',
+            'category': data['category'] ?? '',
+            'imageUrl': data['imageUrl'] ?? '',
+          };
+        }).toList();
+
+        final heroArticle = articles[0];
+        final topArticles = articles.length > 1 ? articles.sublist(1, articles.length.clamp(1, 4)) : [];
+        final tileArticles = articles.length > 4 ? articles.sublist(4, articles.length.clamp(4, 8)) : [];
+        final bottomArticles = articles.length > 8 ? articles.sublist(8) : [];
+
+        return _NewsLayout(
+          heroArticle: heroArticle,
+          topArticles: topArticles,
+          tileArticles: tileArticles,
+          bottomArticles: bottomArticles,
+        );
+      },
+    );
+  }
+}
+
+// ===== SHARED LAYOUT =====
+class _NewsLayout extends StatelessWidget {
+  final Map<String, dynamic> heroArticle;
+  final List topArticles;
+  final List tileArticles;
+  final List bottomArticles;
+
+  const _NewsLayout({
+    required this.heroArticle,
+    required this.topArticles,
+    required this.tileArticles,
+    required this.bottomArticles,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.black,
         elevation: 0,
         toolbarHeight: 80,
-        title: Column(
-          children: [
-            Text(
-              'GeoPolitics Today',
-              style: GoogleFonts.playfairDisplay(
-                fontSize: 42,
-                fontWeight: FontWeight.w700,
-                color: Colors.white,
-                backgroundColor: Colors.black,
-                letterSpacing: 1.5,
-              ),
-            ),
-          ],
+        title: Text(
+          'GeoPolitics Today',
+          style: GoogleFonts.playfairDisplay(
+            fontSize: 42,
+            fontWeight: FontWeight.w700,
+            color: Colors.white,
+            letterSpacing: 1.5,
+          ),
         ),
         centerTitle: true,
       ),
@@ -99,72 +176,96 @@ class NewsScreen extends StatelessWidget {
         children: [
 
           // --- Hero article ---
-          Container(
-            margin: EdgeInsets.all(16),
-            height: 200,
-            decoration: BoxDecoration(
-              color: Colors.grey[200],
-              borderRadius: BorderRadius.circular(12),
+          GestureDetector(
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => ArticleDetailScreen(
+                  title: heroArticle['title'] ?? '',
+                  content: heroArticle['content'] ?? '',
+                  category: heroArticle['category'] ?? '',
+                ),
+              ),
             ),
-            child: Padding(
-              padding: EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Text(
-                    'FEATURED',
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
-                      letterSpacing: 1.2,
-                      color: Colors.blue,
+            child: Container(
+              margin: EdgeInsets.all(16),
+              height: 200,
+              decoration: BoxDecoration(
+                color: Colors.grey[200],
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Padding(
+                padding: EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Text(
+                      'FEATURED',
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                        letterSpacing: 1.2,
+                        color: Colors.blue,
+                      ),
                     ),
-                  ),
-                  SizedBox(height: 6),
-                  Text(
-                    heroArticle['title'] ?? '',
-                    style: GoogleFonts.playfairDisplay(
-                      fontSize: 30,
-                      fontWeight: FontWeight.w700,
-                      color: Colors.black,
+                    SizedBox(height: 6),
+                    Text(
+                      heroArticle['title'] ?? '',
+                      style: GoogleFonts.playfairDisplay(
+                        fontSize: 30,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.black,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
 
           // --- Top articles list ---
-          ...topArticles.map((article) => Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: EdgeInsets.fromLTRB(16, 12, 16, 4),
-                child: Text(
-                  article['title'] ?? '',
-                  style: GoogleFonts.playfairDisplay(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black87,
-                  ),
+          ...topArticles.map((article) => GestureDetector(
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => ArticleDetailScreen(
+                  title: article['title'] ?? '',
+                  content: article['content'] ?? '',
+                  category: article['category'] ?? '',
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.fromLTRB(16, 0, 16, 12),
-                child: Text(
-                  article['content'] ?? '',
-                  style: TextStyle(
-                    fontSize: 13,
-                    color: Colors.grey[600],
-                    height: 1.4,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: EdgeInsets.fromLTRB(16, 12, 16, 4),
+                  child: Text(
+                    article['title'] ?? '',
+                    style: GoogleFonts.playfairDisplay(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.black87,
+                    ),
                   ),
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
                 ),
-              ),
-              Divider(height: 1, color: Colors.grey[200]),
-            ],
+                Padding(
+                  padding: EdgeInsets.fromLTRB(16, 0, 16, 12),
+                  child: Text(
+                    article['content'] ?? '',
+                    style: TextStyle(
+                      fontSize: 13,
+                      color: Colors.grey[600],
+                      height: 1.4,
+                    ),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+                Divider(height: 1, color: Colors.grey[200]),
+              ],
+            ),
           )),
 
           // --- Topic tiles ---
@@ -190,18 +291,25 @@ class NewsScreen extends StatelessWidget {
               mainAxisSpacing: 12,
               childAspectRatio: 2.2,
               children: ['Africa', 'Indo-Pacific', 'South America', 'Middle East'].map((topic) =>
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.grey[100],
+                Material(
+                  color: Colors.grey[100],
+                  borderRadius: BorderRadius.circular(10),
+                  child: InkWell(
+                    onTap: () {},
                     borderRadius: BorderRadius.circular(10),
-                  ),
-                  alignment: Alignment.center,
-                  child: Text(
-                    topic,
-                    style: GoogleFonts.playfairDisplay(
-                      fontSize: 22,
-                      fontWeight: FontWeight.w700,
-                      color: Colors.black87,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      alignment: Alignment.center,
+                      child: Text(
+                        topic,
+                        style: GoogleFonts.playfairDisplay(
+                          fontSize: 22,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.black87,
+                        ),
+                      ),
                     ),
                   ),
                 ),
@@ -210,125 +318,120 @@ class NewsScreen extends StatelessWidget {
           ),
 
           // --- Featured articles ---
-          Padding(
-            padding: EdgeInsets.fromLTRB(16, 24, 16, 8),
-            child: Text(
-              'FEATURED',
-              style: TextStyle(
-                fontSize: 11,
-                fontWeight: FontWeight.w600,
-                letterSpacing: 1.2,
-                color: Colors.blue,
+          if (tileArticles.isNotEmpty) ...[
+            Padding(
+              padding: EdgeInsets.fromLTRB(16, 24, 16, 8),
+              child: Text(
+                'FEATURED',
+                style: TextStyle(
+                  fontSize: 11,
+                  fontWeight: FontWeight.w600,
+                  letterSpacing: 1.2,
+                  color: Colors.blue,
+                ),
               ),
             ),
-          ),
-          ...tileArticles.map((article) => Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: EdgeInsets.fromLTRB(16, 12, 16, 4),
-                child: Text(
-                  article['title'] ?? '',
-                  style: GoogleFonts.playfairDisplay(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black87,
+            ...tileArticles.map((article) => GestureDetector(
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => ArticleDetailScreen(
+                    title: article['title'] ?? '',
+                    content: article['content'] ?? '',
+                    category: article['category'] ?? '',
                   ),
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.fromLTRB(16, 0, 16, 12),
-                child: Text(
-                  article['content'] ?? '',
-                  style: TextStyle(
-                    fontSize: 13,
-                    color: Colors.grey[600],
-                    height: 1.4,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(16, 12, 16, 4),
+                    child: Text(
+                      article['title'] ?? '',
+                      style: GoogleFonts.playfairDisplay(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.black87,
+                      ),
+                    ),
                   ),
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                ),
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(16, 0, 16, 12),
+                    child: Text(
+                      article['content'] ?? '',
+                      style: TextStyle(
+                        fontSize: 13,
+                        color: Colors.grey[600],
+                        height: 1.4,
+                      ),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                  Divider(height: 1, color: Colors.grey[200]),
+                ],
               ),
-              Divider(height: 1, color: Colors.grey[200]),
-            ],
-          )),
+            )),
+          ],
 
-          // --- Category tiles ---
-          Padding(
-            padding: EdgeInsets.fromLTRB(16, 20, 16, 8),
-            child: Text(
-              'TOPICS',
-              style: TextStyle(
-                fontSize: 11,
-                fontWeight: FontWeight.w600,
-                letterSpacing: 1.2,
-                color: Colors.blue,
+          // --- More News ---
+          if (bottomArticles.isNotEmpty) ...[
+            Padding(
+              padding: EdgeInsets.fromLTRB(16, 24, 16, 8),
+              child: Text(
+                'MORE NEWS',
+                style: TextStyle(
+                  fontSize: 11,
+                  fontWeight: FontWeight.w600,
+                  letterSpacing: 1.2,
+                  color: Colors.blue,
+                ),
               ),
             ),
-          ),
-          ...tileArticles.map((article) => Container(
-            margin: EdgeInsets.fromLTRB(16, 0, 16, 12),
-            padding: EdgeInsets.all(14),
-            decoration: BoxDecoration(
-              color: Colors.grey[100],
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  article['category'] ?? '',
-                  style: TextStyle(
-                    fontSize: 10,
-                    fontWeight: FontWeight.w600,
-                    letterSpacing: 1.1,
-                    color: Colors.blue,
-                  ),
-                ),
-                SizedBox(height: 6),
-                Text(
-                  article['title'] ?? '',
-                  style: GoogleFonts.playfairDisplay(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black87,
-                  ),
-                ),
-              ],
-            ),
-          )),
-
-          // --- Final articles list ---
-          ...bottomArticles.map((article) => Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: EdgeInsets.fromLTRB(16, 12, 16, 4),
-                child: Text(
-                  article['title'] ?? '',
-                  style: GoogleFonts.playfairDisplay(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black87,
+            ...bottomArticles.map((article) => GestureDetector(
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => ArticleDetailScreen(
+                    title: article['title'] ?? '',
+                    content: article['content'] ?? '',
+                    category: article['category'] ?? '',
                   ),
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.fromLTRB(16, 0, 16, 12),
-                child: Text(
-                  article['content'] ?? '',
-                  style: TextStyle(
-                    fontSize: 13,
-                    color: Colors.grey[600],
-                    height: 1.4,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(16, 12, 16, 4),
+                    child: Text(
+                      article['title'] ?? '',
+                      style: GoogleFonts.playfairDisplay(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.black87,
+                      ),
+                    ),
                   ),
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                ),
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(16, 0, 16, 12),
+                    child: Text(
+                      article['content'] ?? '',
+                      style: TextStyle(
+                        fontSize: 13,
+                        color: Colors.grey[600],
+                        height: 1.4,
+                      ),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                  Divider(height: 1, color: Colors.grey[200]),
+                ],
               ),
-              Divider(height: 1, color: Colors.grey[200]),
-            ],
-          )),
+            )),
+          ],
 
           SizedBox(height: 24),
         ],
