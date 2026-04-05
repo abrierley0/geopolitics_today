@@ -17,10 +17,8 @@ class ArticleDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // If heroImageUrl exists, prepend it as first image block
-    final allBlocks = heroImageUrl.isNotEmpty
-        ? [{'type': 'image', 'value': heroImageUrl}, ...blocks]
-        : blocks;
+    // Only show text blocks, skip image blocks for now
+    final textBlocks = blocks.where((b) => b['type'] == 'text').toList();
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -68,39 +66,18 @@ class ArticleDetailScreen extends StatelessWidget {
             Divider(color: Colors.grey[200]),
             SizedBox(height: 16),
 
-            // --- Blocks ---
-            ...allBlocks.map((block) {
-              if (block['type'] == 'image') {
-                return Padding(
-                  padding: EdgeInsets.symmetric(vertical: 12),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(8),
-                    child: Image.network(
-                      block['value'] ?? '',
-                      fit: BoxFit.cover,
-                      width: double.infinity,
-                      errorBuilder: (context, error, stackTrace) =>
-                          Container(
-                        height: 200,
-                        color: Colors.grey[200],
-                      ),
-                    ),
-                  ),
-                );
-              } else {
-                return Padding(
-                  padding: EdgeInsets.only(bottom: 16),
-                  child: Text(
-                    block['value'] ?? '',
-                    style: GoogleFonts.playfairDisplay(
-                      fontSize: 17,
-                      height: 1.75,
-                      color: Color(0xFF2C2C2C),
-                    ),
-                  ),
-                );
-              }
-            }),
+            // --- Text blocks only ---
+            ...textBlocks.map((block) => Padding(
+              padding: EdgeInsets.only(bottom: 16),
+              child: Text(
+                block['value'] ?? '',
+                style: GoogleFonts.playfairDisplay(
+                  fontSize: 17,
+                  height: 1.75,
+                  color: Color(0xFF2C2C2C),
+                ),
+              ),
+            )),
 
           ],
         ),

@@ -63,13 +63,34 @@ final mockArticles = [
   {'title': 'New Mental Health Strategy Launched', 'content': 'The government has outlined a ten year plan to improve services.', 'category': 'Health', 'heroImageUrl': ''},
 ];
 
-// ===== REGION GRADIENTS =====
-final regionGradients = {
-  'Africa': [Color(0xFFc94b4b), Color(0xFF4b134f)],
-  'Indo-Pacific': [Color(0xFF1a6b8a), Color(0xFF0a3d62)],
-  'South America': [Color(0xFF2ecc71), Color(0xFF1a6b3a)],
-  'Middle East': [Color(0xFFe67e22), Color(0xFF8e3a00)],
-};
+// ===== PATTERN PAINTERS =====
+class DiagonalStripePainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..color = Colors.grey[300]!
+      ..strokeWidth = 1.5;
+    for (double i = -size.height; i < size.width + size.height; i += 16) {
+      canvas.drawLine(Offset(i, 0), Offset(i + size.height, size.height), paint);
+    }
+  }
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) => false;
+}
+
+class DotGridPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()..color = Colors.grey[400]!;
+    for (double x = 8; x < size.width; x += 16) {
+      for (double y = 8; y < size.height; y += 16) {
+        canvas.drawCircle(Offset(x, y), 1.5, paint);
+      }
+    }
+  }
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) => false;
+}
 
 // ===== HOME SCREEN =====
 class NewsScreen extends StatelessWidget {
@@ -187,6 +208,9 @@ class _NewsLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bool hasHeroImage = heroArticle['heroImageUrl'] != null &&
+        heroArticle['heroImageUrl'].toString().isNotEmpty;
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -214,9 +238,9 @@ class _NewsLayout extends StatelessWidget {
               margin: EdgeInsets.all(16),
               height: 200,
               decoration: BoxDecoration(
-                color: Colors.grey[200],
+                color: Colors.grey[100],
                 borderRadius: BorderRadius.circular(12),
-                image: heroArticle['heroImageUrl'] != null && heroArticle['heroImageUrl'].isNotEmpty
+                image: hasHeroImage
                     ? DecorationImage(
                         image: NetworkImage(heroArticle['heroImageUrl']),
                         fit: BoxFit.cover,
@@ -227,32 +251,39 @@ class _NewsLayout extends StatelessWidget {
                       )
                     : null,
               ),
-              child: Padding(
-                padding: EdgeInsets.all(16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.end,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: Stack(
                   children: [
-                    Text(
-                      'FEATURED',
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                        letterSpacing: 1.2,
-                        color: heroArticle['heroImageUrl'] != null && heroArticle['heroImageUrl'].isNotEmpty
-                            ? Colors.white
-                            : Colors.blue,
+                    if (!hasHeroImage)
+                      Positioned.fill(
+                        child: CustomPaint(painter: DiagonalStripePainter()),
                       ),
-                    ),
-                    SizedBox(height: 6),
-                    Text(
-                      heroArticle['title'] ?? '',
-                      style: GoogleFonts.playfairDisplay(
-                        fontSize: 30,
-                        fontWeight: FontWeight.w700,
-                        color: heroArticle['heroImageUrl'] != null && heroArticle['heroImageUrl'].isNotEmpty
-                            ? Colors.white
-                            : Colors.black,
+                    Padding(
+                      padding: EdgeInsets.all(16),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Text(
+                            'FEATURED',
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
+                              letterSpacing: 1.2,
+                              color: hasHeroImage ? Colors.white : Colors.blue,
+                            ),
+                          ),
+                          SizedBox(height: 6),
+                          Text(
+                            heroArticle['title'] ?? '',
+                            style: GoogleFonts.playfairDisplay(
+                              fontSize: 30,
+                              fontWeight: FontWeight.w700,
+                              color: hasHeroImage ? Colors.white : Colors.black,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ],
@@ -319,28 +350,35 @@ class _NewsLayout extends StatelessWidget {
               mainAxisSpacing: 12,
               childAspectRatio: 2.2,
               children: ['Africa', 'Indo-Pacific', 'South America', 'Middle East'].map((region) {
-                final gradient = regionGradients[region] ?? [Colors.grey[400]!, Colors.grey[700]!];
                 return Material(
+                  color: Colors.grey[100],
                   borderRadius: BorderRadius.circular(10),
                   child: InkWell(
                     onTap: () {},
                     borderRadius: BorderRadius.circular(10),
                     child: Container(
                       decoration: BoxDecoration(
+                        color: Colors.grey[100],
                         borderRadius: BorderRadius.circular(10),
-                        gradient: LinearGradient(
-                          colors: gradient,
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                        ),
                       ),
-                      alignment: Alignment.center,
-                      child: Text(
-                        region,
-                        style: GoogleFonts.playfairDisplay(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.white,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Stack(
+                          children: [
+                            Positioned.fill(
+                              child: CustomPaint(painter: DotGridPainter()),
+                            ),
+                            Center(
+                              child: Text(
+                                region,
+                                style: GoogleFonts.playfairDisplay(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w700,
+                                  color: Colors.black87,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ),
