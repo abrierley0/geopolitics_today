@@ -10,7 +10,6 @@ import 'article_detail_screen.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Skip Firebase on Linux - not supported
   if (!kIsWeb && defaultTargetPlatform != TargetPlatform.linux) {
     await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   }
@@ -63,6 +62,14 @@ final mockArticles = [
   {'title': 'Streaming Giants Lose Subscribers For First Time', 'content': 'The industry faces a turning point as viewer habits continue to shift.', 'category': 'Technology', 'heroImageUrl': ''},
   {'title': 'New Mental Health Strategy Launched', 'content': 'The government has outlined a ten year plan to improve services.', 'category': 'Health', 'heroImageUrl': ''},
 ];
+
+// ===== REGION GRADIENTS =====
+final regionGradients = {
+  'Africa': [Color(0xFFc94b4b), Color(0xFF4b134f)],
+  'Indo-Pacific': [Color(0xFF1a6b8a), Color(0xFF0a3d62)],
+  'South America': [Color(0xFF2ecc71), Color(0xFF1a6b3a)],
+  'Middle East': [Color(0xFFe67e22), Color(0xFF8e3a00)],
+};
 
 // ===== HOME SCREEN =====
 class NewsScreen extends StatelessWidget {
@@ -148,7 +155,6 @@ class _NewsLayout extends StatelessWidget {
     required this.bottomArticles,
   });
 
-  // Helper to navigate to article detail
   void _openArticle(BuildContext context, dynamic article) {
     final rawBlocks = article['blocks'];
     List<Map<String, dynamic>> blocks = [];
@@ -162,7 +168,6 @@ class _NewsLayout extends StatelessWidget {
       }).where((b) => b.isNotEmpty).toList();
     }
 
-    // Fallback to content field if no blocks
     if (blocks.isEmpty && article['content'] != null && article['content'].isNotEmpty) {
       blocks = [{'type': 'text', 'value': article['content']}];
     }
@@ -313,9 +318,9 @@ class _NewsLayout extends StatelessWidget {
               crossAxisSpacing: 12,
               mainAxisSpacing: 12,
               childAspectRatio: 2.2,
-              children: ['Africa', 'Indo-Pacific', 'South America', 'Middle East'].map((topic) =>
-                Material(
-                  color: Colors.grey[100],
+              children: ['Africa', 'Indo-Pacific', 'South America', 'Middle East'].map((region) {
+                final gradient = regionGradients[region] ?? [Colors.grey[400]!, Colors.grey[700]!];
+                return Material(
                   borderRadius: BorderRadius.circular(10),
                   child: InkWell(
                     onTap: () {},
@@ -323,37 +328,30 @@ class _NewsLayout extends StatelessWidget {
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
+                        gradient: LinearGradient(
+                          colors: gradient,
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                        ),
                       ),
                       alignment: Alignment.center,
                       child: Text(
-                        topic,
+                        region,
                         style: GoogleFonts.playfairDisplay(
-                          fontSize: 22,
+                          fontSize: 20,
                           fontWeight: FontWeight.w700,
-                          color: Colors.black87,
+                          color: Colors.white,
                         ),
                       ),
                     ),
                   ),
-                ),
-              ).toList(),
+                );
+              }).toList(),
             ),
           ),
 
-          // --- More News ---
-          if (bottomArticles.isNotEmpty) ...[
-            Padding(
-              padding: EdgeInsets.fromLTRB(16, 24, 16, 8),
-              child: Text(
-                'MORE NEWS',
-                style: TextStyle(
-                  fontSize: 11,
-                  fontWeight: FontWeight.w600,
-                  letterSpacing: 1.2,
-                  color: Colors.blue,
-                ),
-              ),
-            ),
+          // --- More articles ---
+          if (bottomArticles.isNotEmpty)
             ...bottomArticles.map((article) => GestureDetector(
               onTap: () => _openArticle(context, article),
               child: Column(
@@ -387,7 +385,6 @@ class _NewsLayout extends StatelessWidget {
                 ],
               ),
             )),
-          ],
 
           SizedBox(height: 24),
         ],
