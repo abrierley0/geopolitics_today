@@ -80,12 +80,10 @@ class _MockNewsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final heroArticle = mockArticles[0];
     final topArticles = mockArticles.sublist(1, 4);
-    final tileArticles = mockArticles.sublist(4, 8);
-    final bottomArticles = mockArticles.sublist(8);
+    final bottomArticles = mockArticles.sublist(4);
     return _NewsLayout(
       heroArticle: heroArticle,
       topArticles: topArticles,
-      tileArticles: tileArticles,
       bottomArticles: bottomArticles,
     );
   }
@@ -126,13 +124,11 @@ class _LiveNewsScreen extends StatelessWidget {
 
         final heroArticle = articles[0];
         final topArticles = articles.length > 1 ? articles.sublist(1, articles.length.clamp(1, 4)) : [];
-        final tileArticles = articles.length > 4 ? articles.sublist(4, articles.length.clamp(4, 8)) : [];
-        final bottomArticles = articles.length > 8 ? articles.sublist(8) : [];
+        final bottomArticles = articles.length > 4 ? articles.sublist(4) : [];
 
         return _NewsLayout(
           heroArticle: heroArticle,
           topArticles: topArticles,
-          tileArticles: tileArticles,
           bottomArticles: bottomArticles,
         );
       },
@@ -144,22 +140,32 @@ class _LiveNewsScreen extends StatelessWidget {
 class _NewsLayout extends StatelessWidget {
   final Map<String, dynamic> heroArticle;
   final List topArticles;
-  final List tileArticles;
   final List bottomArticles;
 
   const _NewsLayout({
     required this.heroArticle,
     required this.topArticles,
-    required this.tileArticles,
     required this.bottomArticles,
   });
 
   // Helper to navigate to article detail
-  void _openArticle(BuildContext context, Map article) {
-    final rawBlocks = article['blocks'] as List? ?? [];
-    final blocks = rawBlocks.isNotEmpty
-        ? rawBlocks.map((b) => Map<String, dynamic>.from(b)).toList()
-        : [{'type': 'text', 'value': article['content'] ?? ''}];
+  void _openArticle(BuildContext context, dynamic article) {
+    final rawBlocks = article['blocks'];
+    List<Map<String, dynamic>> blocks = [];
+
+    if (rawBlocks != null && rawBlocks is List) {
+      blocks = rawBlocks.map((b) {
+        if (b is Map) {
+          return Map<String, dynamic>.from(b);
+        }
+        return <String, dynamic>{};
+      }).where((b) => b.isNotEmpty).toList();
+    }
+
+    // Fallback to content field if no blocks
+    if (blocks.isEmpty && article['content'] != null && article['content'].isNotEmpty) {
+      blocks = [{'type': 'text', 'value': article['content']}];
+    }
 
     Navigator.push(
       context,
@@ -285,11 +291,11 @@ class _NewsLayout extends StatelessWidget {
             ),
           )),
 
-          // --- Topic tiles ---
+          // --- Region tiles ---
           Padding(
             padding: EdgeInsets.fromLTRB(16, 20, 16, 12),
             child: Text(
-              'TOPICS',
+              'REGIONS',
               style: TextStyle(
                 fontSize: 11,
                 fontWeight: FontWeight.w600,
@@ -333,55 +339,6 @@ class _NewsLayout extends StatelessWidget {
               ).toList(),
             ),
           ),
-
-          // --- Featured articles ---
-          if (tileArticles.isNotEmpty) ...[
-            Padding(
-              padding: EdgeInsets.fromLTRB(16, 24, 16, 8),
-              child: Text(
-                'FEATURED',
-                style: TextStyle(
-                  fontSize: 11,
-                  fontWeight: FontWeight.w600,
-                  letterSpacing: 1.2,
-                  color: Colors.blue,
-                ),
-              ),
-            ),
-            ...tileArticles.map((article) => GestureDetector(
-              onTap: () => _openArticle(context, article),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(16, 12, 16, 4),
-                    child: Text(
-                      article['title'] ?? '',
-                      style: GoogleFonts.playfairDisplay(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.black87,
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(16, 0, 16, 12),
-                    child: Text(
-                      article['content'] ?? '',
-                      style: TextStyle(
-                        fontSize: 13,
-                        color: Colors.grey[600],
-                        height: 1.4,
-                      ),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                  Divider(height: 1, color: Colors.grey[200]),
-                ],
-              ),
-            )),
-          ],
 
           // --- More News ---
           if (bottomArticles.isNotEmpty) ...[
