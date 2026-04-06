@@ -1,12 +1,15 @@
 # GeoPolitics Today
 
-A geopolitics news app built with Flutter and Firebase.
+Welcome!
+
+Geopolitics Today is a news app built with Flutter and Firebase.
+We also have a website at [Link Text](geopoliticstoday.org).
 
 ## Features
 - Live news feed pulling from Firebase Firestore
-- Article detail screen with images
-- Region filtering
-- Clean minimal design with Playfair Display serif font
+- Article screens with images
+- Article filter by region
+- Clean minimal design
 - iOS App Store ready via Codemagic CI/CD
 
 ## Tech Stack
@@ -15,7 +18,6 @@ A geopolitics news app built with Flutter and Firebase.
 - Firebase Storage
 - Codemagic for iOS builds
 
-## Note
-Firebase configuration files are not included in this repo.
-To run locally you will need to set up your own Firebase project
-and add the relevant configuration files.
+## Future Features
+- User log in
+- Dynamic features
