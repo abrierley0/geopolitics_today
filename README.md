@@ -2,7 +2,7 @@
 
 Welcome!!
 
-Geopolitics Today is a news app built with Flutter and Firebase.
+GeoPolitics Today is a news app built with Flutter and Firebase.
 We also have a website at [geopoliticstoday.org](https://geopoliticstoday.org/).
 
 Version: 1.0.0 (9).
