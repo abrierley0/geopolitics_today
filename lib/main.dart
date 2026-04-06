@@ -430,8 +430,10 @@ class _NewsLayout extends StatelessWidget {
 
           // --- More articles ---
           if (bottomArticles.isNotEmpty) ...[
-            SizedBox(height: 16),
-            Divider(height: 1, color: Colors.grey[200]),
+            Padding(
+              padding: EdgeInsets.fromLTRB(16, 20, 16, 0),
+              child: Divider(height: 1, color: Colors.grey[200]),
+            ),
             ...bottomArticles.map((article) {
               final DateTime? date = article['publishedAt'] is DateTime
                   ? article['publishedAt']
