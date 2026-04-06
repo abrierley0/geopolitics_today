@@ -46,31 +46,31 @@ String formatDate(DateTime date) {
 
 // ===== MOCK DATA (Linux only) =====
 final mockArticles = [
-  {'title': 'Global Summit Reaches Climate Agreement', 'content': 'World leaders gathered in Geneva to sign a landmark deal.', 'category': 'World', 'heroImageUrl': '', 'imageCaption': '', 'publishedAt': DateTime(2026, 4, 1)},
-  {'title': 'Tech Giants Face New Regulations', 'content': 'The EU has announced sweeping new rules for large platforms.', 'category': 'Technology', 'heroImageUrl': '', 'imageCaption': '', 'publishedAt': DateTime(2026, 3, 30)},
-  {'title': 'Elections Underway in Three Nations', 'content': 'Voters headed to the polls today in a historic vote.', 'category': 'Politics', 'heroImageUrl': '', 'imageCaption': '', 'publishedAt': DateTime(2026, 3, 29)},
-  {'title': 'Markets Rally After Fed Announcement', 'content': 'Stock markets surged following the latest interest rate decision.', 'category': 'Business', 'heroImageUrl': '', 'imageCaption': '', 'publishedAt': DateTime(2026, 3, 28)},
-  {'title': 'Championship Finals Set For Weekend', 'content': 'Two sides will compete for the title in a sold out stadium.', 'category': 'Sport', 'heroImageUrl': '', 'imageCaption': '', 'publishedAt': DateTime(2026, 3, 27)},
-  {'title': 'New Study Links Sleep To Productivity', 'content': 'Researchers have found a strong correlation between rest and output.', 'category': 'Health', 'heroImageUrl': '', 'imageCaption': '', 'publishedAt': DateTime(2026, 3, 26)},
-  {'title': 'Arctic Ice Levels Hit Record Low', 'content': 'Scientists warn of accelerating melt rates in the polar region.', 'category': 'World', 'heroImageUrl': '', 'imageCaption': '', 'publishedAt': DateTime(2026, 3, 25)},
-  {'title': 'Central Bank Raises Interest Rates', 'content': 'Policymakers move to curb inflation with a quarter point rise.', 'category': 'Business', 'heroImageUrl': '', 'imageCaption': '', 'publishedAt': DateTime(2026, 3, 24)},
-  {'title': 'Space Agency Announces Mars Mission', 'content': 'A crewed mission to Mars is planned for the next decade.', 'category': 'Technology', 'heroImageUrl': '', 'imageCaption': '', 'publishedAt': DateTime(2026, 3, 23)},
-  {'title': 'Transfer Window Opens With Big Moves', 'content': 'Several top clubs have already secured high profile signings.', 'category': 'Sport', 'heroImageUrl': '', 'imageCaption': '', 'publishedAt': DateTime(2026, 3, 22)},
-  {'title': 'UN Calls Emergency Session On Conflict', 'content': 'Security council members met to discuss the escalating crisis.', 'category': 'World', 'heroImageUrl': '', 'imageCaption': '', 'publishedAt': DateTime(2026, 3, 21)},
-  {'title': 'AI Regulation Bill Passes First Reading', 'content': 'Lawmakers move closer to passing landmark artificial intelligence laws.', 'category': 'Technology', 'heroImageUrl': '', 'imageCaption': '', 'publishedAt': DateTime(2026, 3, 20)},
-  {'title': 'Opposition Party Wins By-Election', 'content': 'A surprise result has shifted the balance of power in parliament.', 'category': 'Politics', 'heroImageUrl': '', 'imageCaption': '', 'publishedAt': DateTime(2026, 3, 19)},
-  {'title': 'Oil Prices Surge Amid Supply Concerns', 'content': 'Crude prices climbed sharply on fears of a production shortfall.', 'category': 'Business', 'heroImageUrl': '', 'imageCaption': '', 'publishedAt': DateTime(2026, 3, 18)},
-  {'title': 'National Team Names World Cup Squad', 'content': 'The manager has included several surprise selections in the lineup.', 'category': 'Sport', 'heroImageUrl': '', 'imageCaption': '', 'publishedAt': DateTime(2026, 3, 17)},
-  {'title': 'Hospitals Report Rise In Winter Admissions', 'content': 'Health services are under pressure as seasonal illness peaks early.', 'category': 'Health', 'heroImageUrl': '', 'imageCaption': '', 'publishedAt': DateTime(2026, 3, 16)},
-  {'title': 'Floods Displace Thousands In Southeast Asia', 'content': 'Relief efforts are underway after severe monsoon rains hit the region.', 'category': 'World', 'heroImageUrl': '', 'imageCaption': '', 'publishedAt': DateTime(2026, 3, 15)},
-  {'title': 'Major Bank Announces Thousands Of Job Cuts', 'content': 'The lender cited automation and cost pressures behind the decision.', 'category': 'Business', 'heroImageUrl': '', 'imageCaption': '', 'publishedAt': DateTime(2026, 3, 14)},
-  {'title': 'Rover Discovers Unusual Rock Formation On Mars', 'content': 'Scientists are studying samples that could hint at ancient conditions.', 'category': 'Technology', 'heroImageUrl': '', 'imageCaption': '', 'publishedAt': DateTime(2026, 3, 13)},
-  {'title': 'Athlete Breaks Ten Year World Record', 'content': 'A stunning performance at the championship has rewritten the history books.', 'category': 'Sport', 'heroImageUrl': '', 'imageCaption': '', 'publishedAt': DateTime(2026, 3, 12)},
-  {'title': 'Prime Minister Calls Snap Election', 'content': 'The announcement came after a vote of no confidence in parliament.', 'category': 'Politics', 'heroImageUrl': '', 'imageCaption': '', 'publishedAt': DateTime(2026, 3, 11)},
-  {'title': 'Inflation Falls For Third Consecutive Month', 'content': 'The latest figures offer some relief for households facing high costs.', 'category': 'Business', 'heroImageUrl': '', 'imageCaption': '', 'publishedAt': DateTime(2026, 3, 10)},
-  {'title': 'Wildfire Spreads Across Southern Europe', 'content': 'Firefighters are battling blazes across several countries amid a heatwave.', 'category': 'World', 'heroImageUrl': '', 'imageCaption': '', 'publishedAt': DateTime(2026, 3, 9)},
-  {'title': 'Streaming Giants Lose Subscribers For First Time', 'content': 'The industry faces a turning point as viewer habits continue to shift.', 'category': 'Technology', 'heroImageUrl': '', 'imageCaption': '', 'publishedAt': DateTime(2026, 3, 8)},
-  {'title': 'New Mental Health Strategy Launched', 'content': 'The government has outlined a ten year plan to improve services.', 'category': 'Health', 'heroImageUrl': '', 'imageCaption': '', 'publishedAt': DateTime(2026, 3, 7)},
+  {'title': 'Global Summit Reaches Climate Agreement', 'content': 'World leaders gathered in Geneva to sign a landmark deal.', 'category': 'World', 'heroImageUrl': '', 'publishedAt': DateTime(2026, 4, 1)},
+  {'title': 'Tech Giants Face New Regulations', 'content': 'The EU has announced sweeping new rules for large platforms.', 'category': 'Technology', 'heroImageUrl': '', 'publishedAt': DateTime(2026, 3, 30)},
+  {'title': 'Elections Underway in Three Nations', 'content': 'Voters headed to the polls today in a historic vote.', 'category': 'Politics', 'heroImageUrl': '', 'publishedAt': DateTime(2026, 3, 29)},
+  {'title': 'Markets Rally After Fed Announcement', 'content': 'Stock markets surged following the latest interest rate decision.', 'category': 'Business', 'heroImageUrl': '', 'publishedAt': DateTime(2026, 3, 28)},
+  {'title': 'Championship Finals Set For Weekend', 'content': 'Two sides will compete for the title in a sold out stadium.', 'category': 'Sport', 'heroImageUrl': '', 'publishedAt': DateTime(2026, 3, 27)},
+  {'title': 'New Study Links Sleep To Productivity', 'content': 'Researchers have found a strong correlation between rest and output.', 'category': 'Health', 'heroImageUrl': '', 'publishedAt': DateTime(2026, 3, 26)},
+  {'title': 'Arctic Ice Levels Hit Record Low', 'content': 'Scientists warn of accelerating melt rates in the polar region.', 'category': 'World', 'heroImageUrl': '', 'publishedAt': DateTime(2026, 3, 25)},
+  {'title': 'Central Bank Raises Interest Rates', 'content': 'Policymakers move to curb inflation with a quarter point rise.', 'category': 'Business', 'heroImageUrl': '', 'publishedAt': DateTime(2026, 3, 24)},
+  {'title': 'Space Agency Announces Mars Mission', 'content': 'A crewed mission to Mars is planned for the next decade.', 'category': 'Technology', 'heroImageUrl': '', 'publishedAt': DateTime(2026, 3, 23)},
+  {'title': 'Transfer Window Opens With Big Moves', 'content': 'Several top clubs have already secured high profile signings.', 'category': 'Sport', 'heroImageUrl': '', 'publishedAt': DateTime(2026, 3, 22)},
+  {'title': 'UN Calls Emergency Session On Conflict', 'content': 'Security council members met to discuss the escalating crisis.', 'category': 'World', 'heroImageUrl': '', 'publishedAt': DateTime(2026, 3, 21)},
+  {'title': 'AI Regulation Bill Passes First Reading', 'content': 'Lawmakers move closer to passing landmark artificial intelligence laws.', 'category': 'Technology', 'heroImageUrl': '', 'publishedAt': DateTime(2026, 3, 20)},
+  {'title': 'Opposition Party Wins By-Election', 'content': 'A surprise result has shifted the balance of power in parliament.', 'category': 'Politics', 'heroImageUrl': '', 'publishedAt': DateTime(2026, 3, 19)},
+  {'title': 'Oil Prices Surge Amid Supply Concerns', 'content': 'Crude prices climbed sharply on fears of a production shortfall.', 'category': 'Business', 'heroImageUrl': '', 'publishedAt': DateTime(2026, 3, 18)},
+  {'title': 'National Team Names World Cup Squad', 'content': 'The manager has included several surprise selections in the lineup.', 'category': 'Sport', 'heroImageUrl': '', 'publishedAt': DateTime(2026, 3, 17)},
+  {'title': 'Hospitals Report Rise In Winter Admissions', 'content': 'Health services are under pressure as seasonal illness peaks early.', 'category': 'Health', 'heroImageUrl': '', 'publishedAt': DateTime(2026, 3, 16)},
+  {'title': 'Floods Displace Thousands In Southeast Asia', 'content': 'Relief efforts are underway after severe monsoon rains hit the region.', 'category': 'World', 'heroImageUrl': '', 'publishedAt': DateTime(2026, 3, 15)},
+  {'title': 'Major Bank Announces Thousands Of Job Cuts', 'content': 'The lender cited automation and cost pressures behind the decision.', 'category': 'Business', 'heroImageUrl': '', 'publishedAt': DateTime(2026, 3, 14)},
+  {'title': 'Rover Discovers Unusual Rock Formation On Mars', 'content': 'Scientists are studying samples that could hint at ancient conditions.', 'category': 'Technology', 'heroImageUrl': '', 'publishedAt': DateTime(2026, 3, 13)},
+  {'title': 'Athlete Breaks Ten Year World Record', 'content': 'A stunning performance at the championship has rewritten the history books.', 'category': 'Sport', 'heroImageUrl': '', 'publishedAt': DateTime(2026, 3, 12)},
+  {'title': 'Prime Minister Calls Snap Election', 'content': 'The announcement came after a vote of no confidence in parliament.', 'category': 'Politics', 'heroImageUrl': '', 'publishedAt': DateTime(2026, 3, 11)},
+  {'title': 'Inflation Falls For Third Consecutive Month', 'content': 'The latest figures offer some relief for households facing high costs.', 'category': 'Business', 'heroImageUrl': '', 'publishedAt': DateTime(2026, 3, 10)},
+  {'title': 'Wildfire Spreads Across Southern Europe', 'content': 'Firefighters are battling blazes across several countries amid a heatwave.', 'category': 'World', 'heroImageUrl': '', 'publishedAt': DateTime(2026, 3, 9)},
+  {'title': 'Streaming Giants Lose Subscribers For First Time', 'content': 'The industry faces a turning point as viewer habits continue to shift.', 'category': 'Technology', 'heroImageUrl': '', 'publishedAt': DateTime(2026, 3, 8)},
+  {'title': 'New Mental Health Strategy Launched', 'content': 'The government has outlined a ten year plan to improve services.', 'category': 'Health', 'heroImageUrl': '', 'publishedAt': DateTime(2026, 3, 7)},
 ];
 
 // ===== PATTERN PAINTERS =====
@@ -195,7 +195,9 @@ class _NewsLayout extends StatelessWidget {
 
     if (rawBlocks != null && rawBlocks is List) {
       blocks = rawBlocks.map((b) {
-        if (b is Map) return Map<String, dynamic>.from(b);
+        if (b is Map) {
+          return Map<String, dynamic>.from(b);
+        }
         return <String, dynamic>{};
       }).where((b) => b.isNotEmpty).toList();
     }
@@ -428,6 +430,7 @@ class _NewsLayout extends StatelessWidget {
 
           // --- More articles ---
           if (bottomArticles.isNotEmpty) ...[
+            SizedBox(height: 16),
             Divider(height: 1, color: Colors.grey[200]),
             ...bottomArticles.map((article) {
               final DateTime? date = article['publishedAt'] is DateTime

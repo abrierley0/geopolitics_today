@@ -75,7 +75,6 @@ class RegionScreen extends StatelessWidget {
         stream: FirebaseFirestore.instance
             .collection('articles')
             .where('category', isEqualTo: region)
-            .orderBy('publishedAt', descending: true)
             .snapshots(),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
