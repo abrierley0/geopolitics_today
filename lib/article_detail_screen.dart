@@ -100,17 +100,14 @@ class ArticleDetailScreen extends StatelessWidget {
             // --- Image ---
             if (heroImageUrl.isNotEmpty)
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
-                  child: Image.network(
-                    heroImageUrl,
-                    width: double.infinity,
-                    height: 220,
-                    fit: BoxFit.cover,
-                    errorBuilder: (context, error, stackTrace) =>
-                        Container(height: 220, color: Colors.grey[200]),
-                  ),
+                padding: EdgeInsets.symmetric(horizontal: 40),
+                child: Image.network(
+                  heroImageUrl,
+                  width: double.infinity,
+                  height: 200,
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) =>
+                      Container(height: 200, color: Colors.grey[200]),
                 ),
               ),
 
