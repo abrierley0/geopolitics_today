@@ -5,6 +5,7 @@ class ArticleDetailScreen extends StatelessWidget {
   final String title;
   final String category;
   final String heroImageUrl;
+  final String imageCaption;
   final List<Map<String, dynamic>> blocks;
   final DateTime? publishedAt;
 
@@ -13,6 +14,7 @@ class ArticleDetailScreen extends StatelessWidget {
     required this.title,
     required this.category,
     required this.heroImageUrl,
+    required this.imageCaption,
     required this.blocks,
     this.publishedAt,
   });
@@ -97,8 +99,8 @@ class ArticleDetailScreen extends StatelessWidget {
               ),
             ),
 
-            // --- Image ---
-            if (heroImageUrl.isNotEmpty)
+            // --- Image + caption ---
+            if (heroImageUrl.isNotEmpty) ...[
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 40),
                 child: Image.network(
@@ -110,6 +112,20 @@ class ArticleDetailScreen extends StatelessWidget {
                       Container(height: 200, color: Colors.grey[200]),
                 ),
               ),
+              if (imageCaption.isNotEmpty)
+                Padding(
+                  padding: EdgeInsets.fromLTRB(40, 6, 40, 0),
+                  child: Text(
+                    imageCaption,
+                    style: TextStyle(
+                      fontSize: 11,
+                      color: Colors.grey[500],
+                      fontStyle: FontStyle.italic,
+                      height: 1.4,
+                    ),
+                  ),
+                ),
+            ],
 
             // --- Text blocks ---
             Padding(
