@@ -34,33 +34,42 @@ class MyApp extends StatelessWidget {
   }
 }
 
+// ===== HELPERS =====
+String formatDate(DateTime date) {
+  const months = [
+    'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+  ];
+  return '${months[date.month - 1]} ${date.day}, ${date.year}';
+}
+
 // ===== MOCK DATA (Linux only) =====
 final mockArticles = [
-  {'title': 'Global Summit Reaches Climate Agreement', 'content': 'World leaders gathered in Geneva to sign a landmark deal.', 'category': 'World', 'heroImageUrl': ''},
-  {'title': 'Tech Giants Face New Regulations', 'content': 'The EU has announced sweeping new rules for large platforms.', 'category': 'Technology', 'heroImageUrl': ''},
-  {'title': 'Elections Underway in Three Nations', 'content': 'Voters headed to the polls today in a historic vote.', 'category': 'Politics', 'heroImageUrl': ''},
-  {'title': 'Markets Rally After Fed Announcement', 'content': 'Stock markets surged following the latest interest rate decision.', 'category': 'Business', 'heroImageUrl': ''},
-  {'title': 'Championship Finals Set For Weekend', 'content': 'Two sides will compete for the title in a sold out stadium.', 'category': 'Sport', 'heroImageUrl': ''},
-  {'title': 'New Study Links Sleep To Productivity', 'content': 'Researchers have found a strong correlation between rest and output.', 'category': 'Health', 'heroImageUrl': ''},
-  {'title': 'Arctic Ice Levels Hit Record Low', 'content': 'Scientists warn of accelerating melt rates in the polar region.', 'category': 'World', 'heroImageUrl': ''},
-  {'title': 'Central Bank Raises Interest Rates', 'content': 'Policymakers move to curb inflation with a quarter point rise.', 'category': 'Business', 'heroImageUrl': ''},
-  {'title': 'Space Agency Announces Mars Mission', 'content': 'A crewed mission to Mars is planned for the next decade.', 'category': 'Technology', 'heroImageUrl': ''},
-  {'title': 'Transfer Window Opens With Big Moves', 'content': 'Several top clubs have already secured high profile signings.', 'category': 'Sport', 'heroImageUrl': ''},
-  {'title': 'UN Calls Emergency Session On Conflict', 'content': 'Security council members met to discuss the escalating crisis.', 'category': 'World', 'heroImageUrl': ''},
-  {'title': 'AI Regulation Bill Passes First Reading', 'content': 'Lawmakers move closer to passing landmark artificial intelligence laws.', 'category': 'Technology', 'heroImageUrl': ''},
-  {'title': 'Opposition Party Wins By-Election', 'content': 'A surprise result has shifted the balance of power in parliament.', 'category': 'Politics', 'heroImageUrl': ''},
-  {'title': 'Oil Prices Surge Amid Supply Concerns', 'content': 'Crude prices climbed sharply on fears of a production shortfall.', 'category': 'Business', 'heroImageUrl': ''},
-  {'title': 'National Team Names World Cup Squad', 'content': 'The manager has included several surprise selections in the lineup.', 'category': 'Sport', 'heroImageUrl': ''},
-  {'title': 'Hospitals Report Rise In Winter Admissions', 'content': 'Health services are under pressure as seasonal illness peaks early.', 'category': 'Health', 'heroImageUrl': ''},
-  {'title': 'Floods Displace Thousands In Southeast Asia', 'content': 'Relief efforts are underway after severe monsoon rains hit the region.', 'category': 'World', 'heroImageUrl': ''},
-  {'title': 'Major Bank Announces Thousands Of Job Cuts', 'content': 'The lender cited automation and cost pressures behind the decision.', 'category': 'Business', 'heroImageUrl': ''},
-  {'title': 'Rover Discovers Unusual Rock Formation On Mars', 'content': 'Scientists are studying samples that could hint at ancient conditions.', 'category': 'Technology', 'heroImageUrl': ''},
-  {'title': 'Athlete Breaks Ten Year World Record', 'content': 'A stunning performance at the championship has rewritten the history books.', 'category': 'Sport', 'heroImageUrl': ''},
-  {'title': 'Prime Minister Calls Snap Election', 'content': 'The announcement came after a vote of no confidence in parliament.', 'category': 'Politics', 'heroImageUrl': ''},
-  {'title': 'Inflation Falls For Third Consecutive Month', 'content': 'The latest figures offer some relief for households facing high costs.', 'category': 'Business', 'heroImageUrl': ''},
-  {'title': 'Wildfire Spreads Across Southern Europe', 'content': 'Firefighters are battling blazes across several countries amid a heatwave.', 'category': 'World', 'heroImageUrl': ''},
-  {'title': 'Streaming Giants Lose Subscribers For First Time', 'content': 'The industry faces a turning point as viewer habits continue to shift.', 'category': 'Technology', 'heroImageUrl': ''},
-  {'title': 'New Mental Health Strategy Launched', 'content': 'The government has outlined a ten year plan to improve services.', 'category': 'Health', 'heroImageUrl': ''},
+  {'title': 'Global Summit Reaches Climate Agreement', 'content': 'World leaders gathered in Geneva to sign a landmark deal.', 'category': 'World', 'heroImageUrl': '', 'publishedAt': DateTime(2026, 4, 1)},
+  {'title': 'Tech Giants Face New Regulations', 'content': 'The EU has announced sweeping new rules for large platforms.', 'category': 'Technology', 'heroImageUrl': '', 'publishedAt': DateTime(2026, 3, 30)},
+  {'title': 'Elections Underway in Three Nations', 'content': 'Voters headed to the polls today in a historic vote.', 'category': 'Politics', 'heroImageUrl': '', 'publishedAt': DateTime(2026, 3, 29)},
+  {'title': 'Markets Rally After Fed Announcement', 'content': 'Stock markets surged following the latest interest rate decision.', 'category': 'Business', 'heroImageUrl': '', 'publishedAt': DateTime(2026, 3, 28)},
+  {'title': 'Championship Finals Set For Weekend', 'content': 'Two sides will compete for the title in a sold out stadium.', 'category': 'Sport', 'heroImageUrl': '', 'publishedAt': DateTime(2026, 3, 27)},
+  {'title': 'New Study Links Sleep To Productivity', 'content': 'Researchers have found a strong correlation between rest and output.', 'category': 'Health', 'heroImageUrl': '', 'publishedAt': DateTime(2026, 3, 26)},
+  {'title': 'Arctic Ice Levels Hit Record Low', 'content': 'Scientists warn of accelerating melt rates in the polar region.', 'category': 'World', 'heroImageUrl': '', 'publishedAt': DateTime(2026, 3, 25)},
+  {'title': 'Central Bank Raises Interest Rates', 'content': 'Policymakers move to curb inflation with a quarter point rise.', 'category': 'Business', 'heroImageUrl': '', 'publishedAt': DateTime(2026, 3, 24)},
+  {'title': 'Space Agency Announces Mars Mission', 'content': 'A crewed mission to Mars is planned for the next decade.', 'category': 'Technology', 'heroImageUrl': '', 'publishedAt': DateTime(2026, 3, 23)},
+  {'title': 'Transfer Window Opens With Big Moves', 'content': 'Several top clubs have already secured high profile signings.', 'category': 'Sport', 'heroImageUrl': '', 'publishedAt': DateTime(2026, 3, 22)},
+  {'title': 'UN Calls Emergency Session On Conflict', 'content': 'Security council members met to discuss the escalating crisis.', 'category': 'World', 'heroImageUrl': '', 'publishedAt': DateTime(2026, 3, 21)},
+  {'title': 'AI Regulation Bill Passes First Reading', 'content': 'Lawmakers move closer to passing landmark artificial intelligence laws.', 'category': 'Technology', 'heroImageUrl': '', 'publishedAt': DateTime(2026, 3, 20)},
+  {'title': 'Opposition Party Wins By-Election', 'content': 'A surprise result has shifted the balance of power in parliament.', 'category': 'Politics', 'heroImageUrl': '', 'publishedAt': DateTime(2026, 3, 19)},
+  {'title': 'Oil Prices Surge Amid Supply Concerns', 'content': 'Crude prices climbed sharply on fears of a production shortfall.', 'category': 'Business', 'heroImageUrl': '', 'publishedAt': DateTime(2026, 3, 18)},
+  {'title': 'National Team Names World Cup Squad', 'content': 'The manager has included several surprise selections in the lineup.', 'category': 'Sport', 'heroImageUrl': '', 'publishedAt': DateTime(2026, 3, 17)},
+  {'title': 'Hospitals Report Rise In Winter Admissions', 'content': 'Health services are under pressure as seasonal illness peaks early.', 'category': 'Health', 'heroImageUrl': '', 'publishedAt': DateTime(2026, 3, 16)},
+  {'title': 'Floods Displace Thousands In Southeast Asia', 'content': 'Relief efforts are underway after severe monsoon rains hit the region.', 'category': 'World', 'heroImageUrl': '', 'publishedAt': DateTime(2026, 3, 15)},
+  {'title': 'Major Bank Announces Thousands Of Job Cuts', 'content': 'The lender cited automation and cost pressures behind the decision.', 'category': 'Business', 'heroImageUrl': '', 'publishedAt': DateTime(2026, 3, 14)},
+  {'title': 'Rover Discovers Unusual Rock Formation On Mars', 'content': 'Scientists are studying samples that could hint at ancient conditions.', 'category': 'Technology', 'heroImageUrl': '', 'publishedAt': DateTime(2026, 3, 13)},
+  {'title': 'Athlete Breaks Ten Year World Record', 'content': 'A stunning performance at the championship has rewritten the history books.', 'category': 'Sport', 'heroImageUrl': '', 'publishedAt': DateTime(2026, 3, 12)},
+  {'title': 'Prime Minister Calls Snap Election', 'content': 'The announcement came after a vote of no confidence in parliament.', 'category': 'Politics', 'heroImageUrl': '', 'publishedAt': DateTime(2026, 3, 11)},
+  {'title': 'Inflation Falls For Third Consecutive Month', 'content': 'The latest figures offer some relief for households facing high costs.', 'category': 'Business', 'heroImageUrl': '', 'publishedAt': DateTime(2026, 3, 10)},
+  {'title': 'Wildfire Spreads Across Southern Europe', 'content': 'Firefighters are battling blazes across several countries amid a heatwave.', 'category': 'World', 'heroImageUrl': '', 'publishedAt': DateTime(2026, 3, 9)},
+  {'title': 'Streaming Giants Lose Subscribers For First Time', 'content': 'The industry faces a turning point as viewer habits continue to shift.', 'category': 'Technology', 'heroImageUrl': '', 'publishedAt': DateTime(2026, 3, 8)},
+  {'title': 'New Mental Health Strategy Launched', 'content': 'The government has outlined a ten year plan to improve services.', 'category': 'Health', 'heroImageUrl': '', 'publishedAt': DateTime(2026, 3, 7)},
 ];
 
 // ===== PATTERN PAINTERS =====
@@ -141,12 +150,14 @@ class _LiveNewsScreen extends StatelessWidget {
 
         final articles = docs.map((doc) {
           final data = doc.data() as Map<String, dynamic>;
+          final timestamp = data['publishedAt'] as Timestamp?;
           return {
             'title': data['title'] ?? '',
             'content': data['content'] ?? '',
             'category': data['category'] ?? '',
             'heroImageUrl': data['heroImageUrl'] ?? '',
             'blocks': data['blocks'] ?? [],
+            'publishedAt': timestamp?.toDate(),
           };
         }).toList();
 
@@ -193,6 +204,10 @@ class _NewsLayout extends StatelessWidget {
       blocks = [{'type': 'text', 'value': article['content']}];
     }
 
+    final DateTime? publishedAt = article['publishedAt'] is DateTime
+        ? article['publishedAt']
+        : null;
+
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -201,6 +216,7 @@ class _NewsLayout extends StatelessWidget {
           category: article['category'] ?? '',
           heroImageUrl: article['heroImageUrl'] ?? '',
           blocks: blocks,
+          publishedAt: publishedAt,
         ),
       ),
     );
@@ -293,39 +309,55 @@ class _NewsLayout extends StatelessWidget {
           ),
 
           // --- Top articles list ---
-          ...topArticles.map((article) => GestureDetector(
-            onTap: () => _openArticle(context, article),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: EdgeInsets.fromLTRB(16, 12, 16, 4),
-                  child: Text(
-                    article['title'] ?? '',
-                    style: GoogleFonts.playfairDisplay(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.black87,
+          ...topArticles.map((article) {
+            final DateTime? date = article['publishedAt'] is DateTime
+                ? article['publishedAt']
+                : null;
+            return GestureDetector(
+              onTap: () => _openArticle(context, article),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(16, 12, 16, 4),
+                    child: Text(
+                      article['title'] ?? '',
+                      style: GoogleFonts.playfairDisplay(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.black87,
+                      ),
                     ),
                   ),
-                ),
-                Padding(
-                  padding: EdgeInsets.fromLTRB(16, 0, 16, 12),
-                  child: Text(
-                    article['content'] ?? '',
-                    style: TextStyle(
-                      fontSize: 13,
-                      color: Colors.grey[600],
-                      height: 1.4,
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(16, 0, 16, 4),
+                    child: Text(
+                      article['content'] ?? '',
+                      style: TextStyle(
+                        fontSize: 13,
+                        color: Colors.grey[600],
+                        height: 1.4,
+                      ),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                     ),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
                   ),
-                ),
-                Divider(height: 1, color: Colors.grey[200]),
-              ],
-            ),
-          )),
+                  if (date != null)
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(16, 0, 16, 12),
+                      child: Text(
+                        formatDate(date),
+                        style: TextStyle(
+                          fontSize: 11,
+                          color: Colors.grey[400],
+                        ),
+                      ),
+                    ),
+                  Divider(height: 1, color: Colors.grey[200]),
+                ],
+              ),
+            );
+          }),
 
           // --- Region tiles ---
           Padding(
@@ -390,39 +422,55 @@ class _NewsLayout extends StatelessWidget {
 
           // --- More articles ---
           if (bottomArticles.isNotEmpty)
-            ...bottomArticles.map((article) => GestureDetector(
-              onTap: () => _openArticle(context, article),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(16, 12, 16, 4),
-                    child: Text(
-                      article['title'] ?? '',
-                      style: GoogleFonts.playfairDisplay(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.black87,
+            ...bottomArticles.map((article) {
+              final DateTime? date = article['publishedAt'] is DateTime
+                  ? article['publishedAt']
+                  : null;
+              return GestureDetector(
+                onTap: () => _openArticle(context, article),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(16, 12, 16, 4),
+                      child: Text(
+                        article['title'] ?? '',
+                        style: GoogleFonts.playfairDisplay(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.black87,
+                        ),
                       ),
                     ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(16, 0, 16, 12),
-                    child: Text(
-                      article['content'] ?? '',
-                      style: TextStyle(
-                        fontSize: 13,
-                        color: Colors.grey[600],
-                        height: 1.4,
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(16, 0, 16, 4),
+                      child: Text(
+                        article['content'] ?? '',
+                        style: TextStyle(
+                          fontSize: 13,
+                          color: Colors.grey[600],
+                          height: 1.4,
+                        ),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
                       ),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
                     ),
-                  ),
-                  Divider(height: 1, color: Colors.grey[200]),
-                ],
-              ),
-            )),
+                    if (date != null)
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(16, 0, 16, 12),
+                        child: Text(
+                          formatDate(date),
+                          style: TextStyle(
+                            fontSize: 11,
+                            color: Colors.grey[400],
+                          ),
+                        ),
+                      ),
+                    Divider(height: 1, color: Colors.grey[200]),
+                  ],
+                ),
+              );
+            }),
 
           SizedBox(height: 24),
         ],

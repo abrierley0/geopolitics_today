@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ArticleDetailScreen extends StatelessWidget {
   final String title;
   final String category;
   final String heroImageUrl;
   final List<Map<String, dynamic>> blocks;
+  final DateTime? publishedAt;
 
   const ArticleDetailScreen({
     super.key,
@@ -13,11 +15,19 @@ class ArticleDetailScreen extends StatelessWidget {
     required this.category,
     required this.heroImageUrl,
     required this.blocks,
+    this.publishedAt,
   });
+
+  String _formatDate(DateTime date) {
+    const months = [
+      'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+      'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+    ];
+    return '${months[date.month - 1]} ${date.day}, ${date.year}';
+  }
 
   @override
   Widget build(BuildContext context) {
-    // Only show text blocks, skip image blocks for now
     final textBlocks = blocks.where((b) => b['type'] == 'text').toList();
 
     return Scaffold(
@@ -62,11 +72,44 @@ class ArticleDetailScreen extends StatelessWidget {
               ),
             ),
 
+            SizedBox(height: 10),
+
+            // Date
+            if (publishedAt != null)
+              Text(
+                _formatDate(publishedAt!),
+                style: TextStyle(
+                  fontSize: 12,
+                  color: Colors.grey[500],
+                  letterSpacing: 0.3,
+                ),
+              ),
+
             SizedBox(height: 16),
             Divider(color: Colors.grey[200]),
             SizedBox(height: 16),
 
-            // --- Text blocks only ---
+            // --- Square image below title ---
+            if (heroImageUrl.isNotEmpty)
+              Center(
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: SizedBox(
+                    width: 280,
+                    height: 280,
+                    child: Image.network(
+                      heroImageUrl,
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) =>
+                          Container(color: Colors.grey[200]),
+                    ),
+                  ),
+                ),
+              ),
+
+            SizedBox(height: heroImageUrl.isNotEmpty ? 20 : 0),
+
+            // --- Text blocks ---
             ...textBlocks.map((block) => Padding(
               padding: EdgeInsets.only(bottom: 16),
               child: Text(
