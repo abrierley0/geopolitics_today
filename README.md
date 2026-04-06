@@ -1,17 +1,21 @@
-# news_app
+# GeoPolitics Today
 
-A new Flutter project.
+A geopolitics news app built with Flutter and Firebase.
 
-## Getting Started
+## Features
+- Live news feed pulling from Firebase Firestore
+- Article detail screen with images
+- Region filtering
+- Clean minimal design with Playfair Display serif font
+- iOS App Store ready via Codemagic CI/CD
 
-This project is a starting point for a Flutter application.
+## Tech Stack
+- Flutter / Dart
+- Firebase Firestore
+- Firebase Storage
+- Codemagic for iOS builds
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Note
+Firebase configuration files are not included in this repo.
+To run locally you will need to set up your own Firebase project
+and add the relevant configuration files.
